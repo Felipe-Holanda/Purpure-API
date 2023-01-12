@@ -6,8 +6,7 @@ import userPasswordIsValid from "../middlewares/login/userPasswordIsValid.middle
 
 
 
-
 export const loginRoutes = Router()
 
 
-loginRoutes.post('/login', userExist, userIsActive, userPasswordIsValid, userLoginController)
+loginRoutes.post('', userExist, userIsActive, userPasswordIsValid, userLoginController)

@@ -3,6 +3,7 @@ import AppError from "../../errors/AppError"
 import { compare } from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import 'dotenv/config'
+import { User } from "../../entities/users.entity"
 
 
 const userLoginService =async ({email}) => {

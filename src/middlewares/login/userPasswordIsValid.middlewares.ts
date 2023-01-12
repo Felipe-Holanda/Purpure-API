@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express"
 import AppDataSource from "../../data-source"
 import AppError from "../../errors/AppError"
 import { compare } from 'bcryptjs'
+import { User } from "../../entities/users.entity"
 
 
 
