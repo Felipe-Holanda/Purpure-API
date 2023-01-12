@@ -1,10 +1,14 @@
 import AppDataSource from "../../data-source";
 import Stock from "../../entities/stock.entity";
-import { IStock, IStockUpdate } from "../../interfaces/stock.interface";
+import {
+  IInsertStock,
+  IStock,
+  IStockUpdate,
+} from "../../interfaces/stock.interface";
 import { stockSchema } from "../../serializers/stock.serializer";
 
 const updateStockService = async (
-  data: IStockUpdate,
+  data: IStockUpdate | IInsertStock,
   stockId: number
 ): Promise<IStock> => {
   const stockRepository = AppDataSource.getRepository(Stock);
