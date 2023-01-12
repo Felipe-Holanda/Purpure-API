@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken';
 import 'dotenv'
+import AppError from "../../errors/AppError";
 
 
 export const ensureAuthMiddleware = async(req: Request, res: Response, next: NextFunction) => {
@@ -8,9 +9,7 @@ export const ensureAuthMiddleware = async(req: Request, res: Response, next: Nex
     let token = req.headers.authorization
 
     if(!token){
-        return res.status(401).json({
-            message: 'Invalid token'
-        })
+        throw new AppError("Invelid token", 401)
     }
 
     token = token.split(' ')[1]
