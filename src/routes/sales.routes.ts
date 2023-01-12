@@ -4,7 +4,7 @@ import {
   listSaleWithIdController,
 } from '../controllers/sales.controller'
 
-const salesRoutes = Router()
+export const salesRoutes = Router()
 
 salesRoutes.get('', listSalesController)
 salesRoutes.get('/:id', listSaleWithIdController)

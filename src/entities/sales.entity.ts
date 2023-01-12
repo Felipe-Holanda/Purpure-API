@@ -2,9 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { date } from 'yup'
+import { Product_sales } from './product_sales.entity'
+// import {Clients} from './clients.entity'
 
 @Entity('sales')
 export class Sales {
@@ -20,7 +23,9 @@ export class Sales {
   @CreateDateColumn()
   createdAt: Date
 
-  // Join com as entities
-  // Clientes one to many
-  //  produtos tabela pivo one to many
+  // @ManyToOne((clients) => clients.id)
+  // clients: Clients
+
+  @OneToMany(() => Product_sales, (salesId) => salesId.sales_id)
+  sales_id: Product_sales[]
 }
