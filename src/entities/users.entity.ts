@@ -1,50 +1,54 @@
-import { Exclude } from "class-transformer"
-import { 
-        BeforeInsert, 
-        BeforeUpdate, 
-        Column, 
-        CreateDateColumn, 
-        DeleteDateColumn, 
-        Entity, 
-        PrimaryGeneratedColumn, 
-        UpdateDateColumn } from "typeorm"
-import { hashSync } from 'bcryptjs'
+import { Exclude } from "class-transformer";
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
+import { hashSync } from "bcryptjs";
+import Stock from "./stock.entity";
 
-
-@Entity('users')
+@Entity("users")
 export class User {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+  @Column()
+  comercialName: string;
 
-    @Column()
-    comercialName: string
+  @Column({ unique: true })
+  cnpj: string;
 
-    @Column({unique: true})
-    cnpj: string
+  @Column()
+  @Exclude()
+  password: string;
 
-    @Column()
-    @Exclude()
-    password: string
-    
-    @Column({unique: true})
-    email: string
+  @Column({ unique: true })
+  email: string;
 
-    @Column({default: true})
-    isActive: boolean
+  @Column({ default: true })
+  isActive: boolean;
 
-    @CreateDateColumn()
-    createdAt: Date
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @UpdateDateColumn()
-    updatedAt: Date
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-    @DeleteDateColumn()
-    deletedAt: Date
+  @DeleteDateColumn()
+  deletedAt: Date;
 
-    @BeforeUpdate()
-    @BeforeInsert()
-    hashPassword(){
-        this.password = hashSync(this.password, 10)
-    }
+  @OneToMany(() => Stock, (stock) => stock.user)
+  stock: Stock;
+
+  @BeforeUpdate()
+  @BeforeInsert()
+  hashPassword() {
+    this.password = hashSync(this.password, 10);
+  }
 }

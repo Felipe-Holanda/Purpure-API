@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "./users.entity";
 
 @Entity("products")
 class Stock {
@@ -14,9 +15,8 @@ class Stock {
   @Column({ type: "decimal", precision: 14, scale: 2 })
   amount: number;
 
-  //Preciza da entidade de user
-  @Column()
-  user: string;
+  @ManyToOne(() => User, (user) => user.stock)
+  user: User;
 }
 
 export default Stock;
