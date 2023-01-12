@@ -5,12 +5,12 @@ import AppError from "../../errors/AppError";
 
 
 
-export const ensureCnpjAlreadyRegistredMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+export const verifyCnpjAlreadyRegistredMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 
     const companyRegistred = AppDataSource.getRepository(User)
 
     const company = await companyRegistred.findBy({
-        email: req.body.cnpj
+        cnpj: req.body.cnpj
     })
     
     if(company.length > 0) {
@@ -18,5 +18,5 @@ export const ensureCnpjAlreadyRegistredMiddleware = async (req: Request, res: Re
         throw new AppError('Company already registred', 409)
     }
 
-    next()
+    return next()
 }

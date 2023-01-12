@@ -10,7 +10,7 @@ export const userSerializer: SchemaOf<IUserRequest> = yup.object().shape({
 })
 
 export const updateUserSerializer: SchemaOf<IUserUpdate> = yup.object().shape({
-    comercialName: yup.string().notRequired(),
+    // comercialName: yup.string().notRequired(),
     email: yup.string().email().notRequired(),
     password: yup.string().notRequired()
 })

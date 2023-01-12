@@ -4,7 +4,7 @@ import { User } from "../../entities/users.entity"
 import AppError from "../../errors/AppError"
 
 
-export const ensureUsernotExistMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+export const verifyUserExistMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 
     const userRegistred = AppDataSource.getRepository(User)
 

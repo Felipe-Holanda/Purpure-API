@@ -16,7 +16,7 @@ export interface IUser {
 }
 
 export interface IUserUpdate {
-    comercialName?: string
+    // comercialName?: string
     email?: string
     password?: string
 }
