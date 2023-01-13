@@ -11,7 +11,7 @@ const verifyStockAlreadyExistsMiddleware = async (
   const stockRepository = AppDataSource.getRepository(Stock);
 
   const stock = await stockRepository.findOneBy({
-    id: Number(req.params.id),
+    id: Number(req.body.name),
   });
 
   if (stock) {
