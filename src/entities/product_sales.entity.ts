@@ -1,21 +1,21 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { Sales } from './sales.entity'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Sales } from "./sales.entity";
 
 // import {Products} from './products.entity'
 
-@Entity('product_sales')
+@Entity("product_sales")
 export class Product_sales {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
   @Column({ unique: true })
-  product_id: string
+  product_id: string;
 
   @Column({ unique: true })
-  sales_id: string
+  sales_id: string;
 
-  @ManyToOne((sales) => sales.id)
-  sales: Sales
+  @ManyToOne(() => Sales, (sales) => sales.product_sales)
+  sales: Sales;
 
   // @ManyToOne((products) => Stock)
   // products: Stock
