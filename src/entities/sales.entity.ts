@@ -23,7 +23,7 @@ export class Sales {
   @CreateDateColumn()
   createdAt: Date
 
-  // @ManyToOne((clients) => clients.id)
+  // @ManyToOne((clients) => clients)
   // clients: Clients
 
   @OneToMany(() => Product_sales, (salesId) => salesId.sales_id)

@@ -1,7 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Sales } from './sales.entity'
-
-// import {Products} from './products.entity'
+import Stock from './stock.entity'
 
 @Entity('product_sales')
 export class Product_sales {
@@ -14,9 +13,9 @@ export class Product_sales {
   @Column({ unique: true })
   sales_id: string
 
-  @ManyToOne((sales) => sales.id)
+  @ManyToOne((sales) => sales)
   sales: Sales
 
-  // @ManyToOne((products) => Stock)
-  // products: Stock
+  @ManyToOne((stock) => stock)
+  products: Stock
 }

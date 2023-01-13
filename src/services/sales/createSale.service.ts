@@ -1,8 +1,11 @@
 import AppDataSource from '../../data-source'
 import { Sales } from '../../entities/sales.entity'
+import { ISales, ISalesReturn } from '../../interfaces/sales.interfaces'
 // import {Clients} from '../../entities/clients.entity'
 
-export const createSaleService = async (body) => {
+export const createSaleService = async (
+  body: ISales
+): Promise<ISalesReturn> => {
   const salesRepository = AppDataSource.getRepository(Sales)
 
   // const clientsRespository = AppDataSource.getRepository(Clients)
@@ -18,6 +21,12 @@ export const createSaleService = async (body) => {
   //   amount: body.amount,
   //   value: body.value,
   //   createdAt: body.createdAt,
+  // }
+
+  // const reuturnedSale = {
+  //   ...body,
+  //   clientId: undefined,
+  //   client_name: foundClient.name,
   // }
 
   return createdSale
