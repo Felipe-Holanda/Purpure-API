@@ -6,10 +6,9 @@ declare global {
       user: {
         id: string;
         isActive: boolean;
-      }
+      };
     }
-
   }
 }
 
-export { }
+export {};

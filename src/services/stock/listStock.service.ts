@@ -6,14 +6,13 @@ import { listStockSchema } from "../../serializers/stock.serializer";
 const listStockService = async (userId: string): Promise<IStock[]> => {
   const userRepository = AppDataSource.getRepository(User);
 
-  const stockList = await userRepository
+  const { stock } = await userRepository
     .createQueryBuilder("users")
-    .innerJoin("users.stock", "stock")
-    .where("user.id = :id", { id: userId })
-    .select("stock")
-    .getMany();
+    .innerJoinAndSelect("users.stock", "stock")
+    .where("users.id = :id", { id: userId })
+    .getOne();
 
-  const stockListValidated = await listStockSchema.validate(stockList, {
+  const stockListValidated = await listStockSchema.validate(stock, {
     stripUnknown: true,
   });
 
