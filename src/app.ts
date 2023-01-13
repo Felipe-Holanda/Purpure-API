@@ -7,6 +7,7 @@ import { salesRoutes } from './routes/sales.routes'
 import { userRoutes } from "./routes/user.routes";
 import { loginRoutes } from "./routes/login.routes";
 
+
 const app = express()
 app.use(express.json())
 

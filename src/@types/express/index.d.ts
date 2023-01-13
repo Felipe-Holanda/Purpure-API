@@ -8,7 +8,8 @@ declare global {
         isActive: boolean;
       }
     }
+
   }
 }
 
-export {}
+export { }
