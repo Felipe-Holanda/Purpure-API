@@ -1,12 +1,21 @@
+import "reflect-metadata";
+import "express-async-errors";
 import express from "express";
+import handleError from "./errors/handleError";
+import stockRouter from "./routes/stock.routes";
+import { salesRoutes } from './routes/sales.routes'
+import { userRoutes } from "./routes/user.routes";
+import { loginRoutes } from "./routes/login.routes";
 
-const app = express();
-app.use(express.json());
 
-app.get("/", (req, res) => {
-  console.log("helo world");
+const app = express()
+app.use(express.json())
 
-  return res.json("helo world");
-});
+app.use("/users", userRoutes);
+app.use("/login", loginRoutes);
+app.use("/stock", stockRouter);
+app.use("/sales", salesRoutes)
 
-export default app;
+app.use(handleError)
+
+export default app
