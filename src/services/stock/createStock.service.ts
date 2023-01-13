@@ -19,7 +19,6 @@ export const createStockService = async (
     ...data,
     user: user,
   });
-  console.log(newStock);
   await stockRepository.save(newStock);
 
   const userValidated = await stockSchema.validate(newStock, {
