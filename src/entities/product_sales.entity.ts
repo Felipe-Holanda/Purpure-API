@@ -17,6 +17,6 @@ export class Product_sales {
   @ManyToOne((sales) => sales.id)
   sales: Sales
 
-  // @ManyToOne((products) => products.id)
-  // products: Products
+  // @ManyToOne((products) => Stock)
+  // products: Stock
 }
