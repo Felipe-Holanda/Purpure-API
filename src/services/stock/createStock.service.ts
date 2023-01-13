@@ -8,6 +8,7 @@ export const createStockService = async (
   data: IStockRequest,
   userId: string
 ) => {
+
   const stockRepository = AppDataSource.getRepository(Stock);
   const userRepository = AppDataSource.getRepository(User);
 
