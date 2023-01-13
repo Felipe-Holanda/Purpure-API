@@ -9,4 +9,4 @@ import userPasswordIsValid from "../middlewares/login/userPasswordIsValid.middle
 export const loginRoutes = Router()
 
 
-loginRoutes.post('', userExist, userIsActive, userPasswordIsValid, userLoginController)
+loginRoutes.post('', userIsActive, userExist, userPasswordIsValid, userLoginController)

@@ -16,9 +16,10 @@ export const createUserController = async (req: Request, res: Response) => {
 
 export const updateUserController = async (req: Request, res: Response) => {
 
-    const userData: IUserUpdate = req.body
+
     const id: string = req.params.id
-    const updateUser = await updateUserService(userData, id)
+    const {email, password}: IUserUpdate = req.body
+    const updateUser = await updateUserService({email, password}, id)
     return res.status(200).json(updateUser)
 }
 
