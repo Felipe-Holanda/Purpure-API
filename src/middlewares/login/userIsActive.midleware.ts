@@ -13,7 +13,7 @@ const userIsActive =async (req:Request, res: Response, next: NextFunction) => {
         email: req.body.email 
     })
 
-    if(user.isActive === false){
+    if(!user){
         throw new AppError("The user is not active", 400)
     }
 
