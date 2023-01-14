@@ -1,5 +1,5 @@
 import { Router } from "express";
-import userLoginController from "../controllers/userLogin.controller";
+import userLoginController from "../controllers/login.controller";
 import userExist from "../middlewares/login/userExist.midleware";
 import userIsActive from "../middlewares/login/userIsActive.midleware";
 import userPasswordIsValid from "../middlewares/login/userPasswordIsValid.middlewares";
