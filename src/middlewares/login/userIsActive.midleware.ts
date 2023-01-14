@@ -5,15 +5,15 @@ import AppError from "../../errors/AppError"
 
 
 
-const userIsActive =async (req:Request, res: Response, next: NextFunction) => {
-    
+const userIsActive = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+
     const usersRepository = AppDataSource.getRepository(User)
 
     const user = await usersRepository.findOneBy({
-        email: req.body.email 
+        email: req.body.email
     })
 
-    if(!user){
+    if (!user) {
         throw new AppError("The user is not active", 400)
     }
 

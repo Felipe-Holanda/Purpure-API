@@ -3,8 +3,8 @@ import { userRepository, clientsRepository } from '../../data-source';
 import AppError from '../../errors/AppError';
 
 export default async function checkMatchMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const { id } = req.params;
-    const userId = req.user.id;
+    const { id } = req.params as { id: string };
+    const userId = req.user.id as string;
 
     const user = await userRepository.findOneBy({ id: userId });
     const client = await clientsRepository.findOne({ where: { id }, relations: ['user'] });
