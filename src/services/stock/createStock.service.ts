@@ -7,7 +7,7 @@ import { stockSchema } from "../../serializers/stock.serializer";
 export const createStockService = async (
   data: IStockRequest,
   userId: string
-) => {
+): Promise<IStockRequest> => {
   const stockRepository = AppDataSource.getRepository(Stock);
   const userRepository = AppDataSource.getRepository(User);
 
