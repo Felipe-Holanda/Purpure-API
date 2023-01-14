@@ -7,29 +7,29 @@ import { listUsersServices } from "../services/users/listUsersService.service"
 import { updateUserService } from "../services/users/updateUser.service"
 
 
-export const createUserController = async (req: Request, res: Response) => {
+export const createUserController = async (req: Request, res: Response): Promise<Response> => {
 
     const userData: IUserRequest = req.body
     const newUser = await createUserService(userData)
     return res.status(201).json(newUser)
 }
 
-export const updateUserController = async (req: Request, res: Response) => {
+export const updateUserController = async (req: Request, res: Response): Promise<Response> => {
 
 
     const id: string = req.params.id
-    const {email, password}: IUserUpdate = req.body
-    const updateUser = await updateUserService({email, password}, id)
+    const { email, password }: IUserUpdate = req.body
+    const updateUser = await updateUserService({ email, password }, id)
     return res.status(200).json(updateUser)
 }
 
-export const listUsersController = async (req: Request, res: Response) => {
+export const listUsersController = async (req: Request, res: Response): Promise<Response> => {
 
     const users = await listUsersServices()
     return res.json(instanceToPlain(users))
 }
 
-export const deleteUserController = async (req: Request, res: Response) => {
+export const deleteUserController = async (req: Request, res: Response): Promise<Response> => {
 
     await deleteUserService(req.params.id)
     return res.status(204).send()
