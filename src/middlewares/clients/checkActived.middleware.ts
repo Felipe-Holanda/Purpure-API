@@ -5,7 +5,7 @@ import AppError from "../../errors/AppError";
 
 export default async function checkActivedMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
 
-    const { id } = req.params;
+    const { id } = req.params as { id: string };
 
     const client = await clientsRepository.findOne({ where: { id, isActive: IsNull() } });
 

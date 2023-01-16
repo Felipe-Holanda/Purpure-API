@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source"
 import { User } from "../../entities/users.entity"
 
 
-export const deleteUserService = async (id: string) => {
+export const deleteUserService = async (id: string): Promise<void> => {
 
     const userRepository = AppDataSource.getRepository(User)
 
@@ -17,5 +17,5 @@ export const deleteUserService = async (id: string) => {
         id: id
     })
 
-    return {}
+    return;
 }

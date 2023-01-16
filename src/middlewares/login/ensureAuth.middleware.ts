@@ -4,9 +4,9 @@ import 'dotenv'
 import AppError from "../../errors/AppError";
 
 
-export const ensureAuthMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+export const ensureAuthMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
-    let token = req.headers.authorization
+    let token = req.headers.authorization as string
 
     if (!token) {
         throw new AppError('Invalid token', 401)
@@ -22,7 +22,7 @@ export const ensureAuthMiddleware = async (req: Request, res: Response, next: Ne
         req.user = {
             id: decoded.id,
             isActive: decoded.isActive
-        }
+        } as { id: string; isActive: boolean; }
 
         return next()
     })

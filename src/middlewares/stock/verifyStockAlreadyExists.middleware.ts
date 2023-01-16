@@ -7,7 +7,7 @@ const verifyStockAlreadyExistsMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const stockRepository = AppDataSource.getRepository(Stock);
 
   const stock = await stockRepository.findOneBy({

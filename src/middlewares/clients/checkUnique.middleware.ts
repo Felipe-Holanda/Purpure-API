@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import AppError from "../../errors/AppError";
 
 export default async function checkUniqueMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const { email, phone, document } = req.body;
+    const { email, phone, document } = req.body as { email: string, phone: string, document: string };
 
     const clientEmail = await clientsRepository.find({ where: { email } });
     const clientPhone = await clientsRepository.find({ where: { phone } });
