@@ -4,18 +4,18 @@ import 'dotenv'
 import AppError from "../../errors/AppError";
 
 
-export const ensureAuthMiddleware = async(req: Request, res: Response, next: NextFunction) => {
+export const ensureAuthMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 
     let token = req.headers.authorization
 
-    if(!token){
+    if (!token) {
         throw new AppError('Invalid token', 401)
-      }
+    }
 
     token = token.split(' ')[1]
 
     jwt.verify(token, process.env.SECRET_KEY, (error: { message: string; }, decoded: { id: string; isActive: boolean; }) => {
-        if(error){
+        if (error) {
             throw new AppError(error.message, 401)
         }
 
