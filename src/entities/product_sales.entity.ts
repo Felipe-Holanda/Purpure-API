@@ -9,15 +9,9 @@ export class Product_sales {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ unique: true })
-  product_id: string;
-
-  @Column({ unique: true })
-  sales_id: string;
-
-  @ManyToOne((sales) => sales)
+  @ManyToOne(() => Sales, (sales) => sales.id) 
   sales: Sales
 
-  @ManyToOne((stock) => stock)
+  @ManyToOne(() => Stock, (stock) => stock.id)
   products: Stock
 }

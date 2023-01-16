@@ -25,7 +25,8 @@ export const updateUserController = async (req: Request, res: Response): Promise
 
 export const listUsersController = async (req: Request, res: Response): Promise<Response> => {
 
-    const users = await listUsersServices()
+    const userId = req.user.id
+    const users = await listUsersServices(userId)
     return res.json(instanceToPlain(users))
 }
 
