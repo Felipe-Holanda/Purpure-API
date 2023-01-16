@@ -1,9 +1,7 @@
-import { NextFunction, Request, Response } from "express"
-import AppDataSource from "../../data-source"
-import { User } from "../../entities/users.entity"
-import AppError from "../../errors/AppError"
-
-
+import { NextFunction, Request, Response } from 'express'
+import AppDataSource from '../../data-source'
+import { User } from '../../entities/users.entity'
+import AppError from '../../errors/AppError'
 
 const userIsActive = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 

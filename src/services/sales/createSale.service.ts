@@ -1,5 +1,6 @@
 import AppDataSource from '../../data-source'
 import { Sales } from '../../entities/sales.entity'
+import { ISales, ISalesReturn } from '../../interfaces/sales.interfaces'
 // import {Clients} from '../../entities/clients.entity'
 
 export const createSaleService = async (body): Promise<Sales[]> => {
@@ -18,6 +19,12 @@ export const createSaleService = async (body): Promise<Sales[]> => {
   //   amount: body.amount,
   //   value: body.value,
   //   createdAt: body.createdAt,
+  // }
+
+  // const reuturnedSale = {
+  //   ...body,
+  //   clientId: undefined,
+  //   client_name: foundClient.name,
   // }
 
   return createdSale
