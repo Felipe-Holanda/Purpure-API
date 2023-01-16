@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  DeleteDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { User } from "./users.entity";
 
 @Entity("products")
@@ -14,6 +20,9 @@ class Stock {
 
   @Column({ type: "decimal", precision: 14, scale: 2 })
   amount: number;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   @ManyToOne(() => User, (user) => user.stock)
   user: User;

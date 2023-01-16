@@ -6,21 +6,21 @@ import 'dotenv/config'
 import { User } from "../../entities/users.entity"
 
 
-const userLoginService =async ({email}) => {
+const userLoginService = async ({ email }): Promise<[number, string]> => {
     const usersRepository = AppDataSource.getRepository(User)
 
     const user = await usersRepository.findOneBy({
-        email: email 
+        email: email
     })
 
     const token = jwt.sign(
         {
-            id: user.id,        
+            id: user.id,
             isActive: user.isActive
         },
         String(process.env.SECRET_KEY),
         {
-            subject: user.id,   
+            subject: user.id,
             expiresIn: "24h"
         }
     )

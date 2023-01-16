@@ -12,6 +12,7 @@ import {
 } from "typeorm";
 import { hashSync } from "bcryptjs";
 import Stock from "./stock.entity";
+import { Clients } from "./clients.entity";
 
 @Entity("users")
 export class User {
@@ -45,6 +46,9 @@ export class User {
 
   @OneToMany(() => Stock, (stock) => stock.user)
   stock: Stock;
+
+  @OneToMany(() => Clients, (clients) => clients.user)
+  clients: Clients;
 
   @BeforeUpdate()
   @BeforeInsert()

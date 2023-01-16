@@ -2,16 +2,18 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Sales } from './sales.entity'
 import Stock from './stock.entity'
 
-@Entity('product_sales')
+// import {Products} from './products.entity'
+
+@Entity("product_sales")
 export class Product_sales {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
   @Column({ unique: true })
-  product_id: string
+  product_id: string;
 
   @Column({ unique: true })
-  sales_id: string
+  sales_id: string;
 
   @ManyToOne((sales) => sales)
   sales: Sales
