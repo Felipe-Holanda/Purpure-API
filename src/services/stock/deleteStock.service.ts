@@ -8,7 +8,7 @@ const deleteStockService = async (stockId: number): Promise<void> => {
     id: stockId,
   });
 
-  stockRepository.softRemove(stock);
+  stockRepository.remove(stock);
 
   return;
 };
