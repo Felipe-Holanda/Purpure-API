@@ -12,6 +12,5 @@ export default async function checkMatchMiddleware(req: Request, res: Response, 
     if (client.isActive === false) throw new AppError("Client is inactive", 400);
 
     if (user.id !== client.user.id) throw new AppError("Client not found", 404);
-
     return next();
 }

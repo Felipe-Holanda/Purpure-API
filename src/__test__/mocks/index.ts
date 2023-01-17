@@ -28,8 +28,7 @@ export const newClient = {
     name: "Jonas",
     document: "11122233345",
     email: "jonas@mail.com",
-    number: "00912345678",
-    user:""
+    phone: "00912345678"   
 }
 
 export const newClientInvalidUserId = {
