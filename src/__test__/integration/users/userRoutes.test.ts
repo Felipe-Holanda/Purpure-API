@@ -142,7 +142,6 @@ describe("/users", () => {
 
         const response = await request(app).patch(`/users/${userTobeUpdateId}`).set("Authorization",token).send(newValues)
         
-        console.log(response.body)
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(401)
     })

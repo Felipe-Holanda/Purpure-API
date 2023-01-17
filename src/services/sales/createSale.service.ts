@@ -2,21 +2,21 @@ import AppDataSource from '../../data-source'
 import { Sales } from '../../entities/sales.entity'
 import { Clients } from '../../entities/clients.entity'
 
-export const createSaleService = async (body): Promise<Sales[]> => {
+export const createSaleService = async (data: any) => {
   const salesRepository = AppDataSource.getRepository(Sales)
-
+  
   const clientsRespository = AppDataSource.getRepository(Clients)
-
-  const foundClient = await clientsRespository.findOneBy({ id: body.id })
-
-  const createdSale = salesRepository.create(body)
+  
+  const foundClient = await clientsRespository.findOneBy({ id: data.clients })
+  const createdSale = salesRepository.create(data)
+  
   await salesRepository.save(createdSale)
-
+  
   const reuturnedSale = {
-    ...body,
-    clientId: undefined,
+    ...createdSale,
+    clients: undefined,
     client_name: foundClient.name,
-  }
-
+  } 
+  
   return reuturnedSale
 }
