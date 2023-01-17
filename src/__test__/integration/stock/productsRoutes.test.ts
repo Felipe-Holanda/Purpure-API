@@ -48,16 +48,6 @@ describe("/stock",() => {
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(409)
     })
-    //Criar um middleware para tratar de ID errado
-   /*  test("POST /stock - should not be able to create product with invalid userId",async () => {
-        const responseLogin = await request(app).post('/login').send(mockedUserLogin)
-        const token = `Bearer ${responseLogin.body.token}`
-
-        const response = await request(app).post("/stock").set("Authorization", token).send(newProductInvalidUserId)
-
-        expect(response.body).toHaveProperty("message")
-        expect(response.status).toBe(404)
-    }) */
 
     test("POST /stock - should not be able to create another product without authorization",async () => {
         const response = await request(app).post("/stock").send(newProduct)
@@ -105,8 +95,8 @@ describe("/stock",() => {
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(404)
     })
-    //Criar um middleware para tratar de ID errado
-/*     test("PACH /stock/:id - should not be able to update another product by changing the user",async () => {
+    
+     test("PACH /stock/:id - should not be able to update another product by changing the user",async () => {
         const updateProduct = {
             user: "usuario atualizado"
         }
@@ -119,7 +109,7 @@ describe("/stock",() => {
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(400)
 
-    }) */
+    }) 
 
     test("PACH /stock/:id - must be able update product",async () => {
         const updateProduct = {
