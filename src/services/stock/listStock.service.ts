@@ -3,8 +3,9 @@ import { User } from "../../entities/users.entity";
 import { IStock } from "../../interfaces/stock.interface";
 import { listStockSchema } from "../../serializers/stock.serializer";
 
-const listStockService = async (userId: string): Promise<IStock[]> => {
+const listStockService = async (userId: string) => {
   const userRepository = AppDataSource.getRepository(User);
+
 
   const { stock } = await userRepository
     .createQueryBuilder("users")
@@ -15,8 +16,8 @@ const listStockService = async (userId: string): Promise<IStock[]> => {
   const stockListValidated = await listStockSchema.validate(stock, {
     stripUnknown: true,
   });
-
-  return stockListValidated;
+  
+  return stockListValidated
 };
 
 export default listStockService;
