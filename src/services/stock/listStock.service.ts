@@ -5,10 +5,11 @@ import { listStockSchema } from "../../serializers/stock.serializer";
 
 const listStockService = async (userId: string) => {
   const userRepository = AppDataSource.getRepository(User);
-  
+
+
   const { stock } = await userRepository
     .createQueryBuilder("users")
-    .leftJoinAndSelect("users.stock", "stock")
+    .innerJoinAndSelect("users.stock", "stock")
     .where("users.id = :id", { id: userId })
     .getOne();
 

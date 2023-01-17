@@ -5,16 +5,16 @@ import AppError from "../../errors/AppError";
 
 
 
-export const verifyEmailAlreadyRegistredMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+export const verifyEmailAlreadyRegistredMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
     const companyRegistred = AppDataSource.getRepository(User)
 
     const company = await companyRegistred.findBy({
         email: req.body.email
-    })
-    
-    if(company.length > 0) {
-        
+    }) as User[]
+
+    if (company.length > 0) {
+
         throw new AppError('E-mail already registred', 409)
     }
 

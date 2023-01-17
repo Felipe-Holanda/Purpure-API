@@ -1,19 +1,17 @@
-import { NextFunction, Request, Response } from "express"
-import AppDataSource from "../../data-source"
-import { User } from "../../entities/users.entity"
-import AppError from "../../errors/AppError"
+import { NextFunction, Request, Response } from 'express'
+import AppDataSource from '../../data-source'
+import { User } from '../../entities/users.entity'
+import AppError from '../../errors/AppError'
 
+const userIsActive = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
-
-const userIsActive =async (req:Request, res: Response, next: NextFunction) => {
-    
     const usersRepository = AppDataSource.getRepository(User)
 
     const user = await usersRepository.findOneBy({
-        email: req.body.email 
+        email: req.body.email
     })
 
-    if(!user){
+    if (!user) {
         throw new AppError("The user is not active", 400)
     }
 
