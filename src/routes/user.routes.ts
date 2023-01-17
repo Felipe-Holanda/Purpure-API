@@ -9,7 +9,7 @@ import { verifyUserExistMiddleware } from "../middlewares/users/verifyUserExist.
 
 export const userRoutes = Router()
 
-userRoutes.get('/:id', ensureAuthMiddleware, listUsersController)
+userRoutes.get('', ensureAuthMiddleware, listUsersController)
 userRoutes.post('', verifyEmailAlreadyRegistredMiddleware, verifyCnpjAlreadyRegistredMiddleware, createUserController)
 userRoutes.patch('/:id', ensureAuthMiddleware, verifyUpdateFieldsMiddleware, verifyOwnerMiddleware, verifyUserExistMiddleware, updateUserController)
 userRoutes.delete('/:id', ensureAuthMiddleware, verifyOwnerMiddleware,verifyUserExistMiddleware, deleteUserController)
