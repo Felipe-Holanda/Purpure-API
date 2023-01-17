@@ -107,7 +107,7 @@ describe("/stock",() => {
         const response = await request(app).patch(`/stock/${1}`).set("Authorization", token).send(updateProduct)
 
         expect(response.body).toHaveProperty("message")
-        expect(response.status).toBe(400)
+        expect(response.status).toBe(401)
 
     }) 
 

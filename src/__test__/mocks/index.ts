@@ -56,9 +56,11 @@ export const newProductInvalidUserId = {
 
 
 export const newSale = {
-    client: "",
-    product: "",
-    user: "",
-    amout: 5
+    amount: 2,
+    clients: "",
+    value: 10.99
 }
 
+export const saleId = {
+    id: ""
+}

@@ -5,9 +5,10 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-} from 'typeorm'
-import { Clients } from './clients.entity'
-import { Product_sales } from './product_sales.entity'
+} from "typeorm";
+import { Product_sales } from "./product_sales.entity";
+import {Clients} from './clients.entity'
+
 
 @Entity('sales')
 export class Sales {

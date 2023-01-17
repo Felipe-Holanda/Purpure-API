@@ -17,7 +17,6 @@ export const createStockController = async (
   const data: IStockRequest = req.body;
   const userId: string = req.user.id;
 
-  console.log(data, userId)
   const stock = await createStockService(data, userId);
 
   return res.status(201).json(stock);
