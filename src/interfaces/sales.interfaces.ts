@@ -1,5 +1,5 @@
 export interface ISales {
-  id: number
+  id?: string
   amount: number
   client_id: string
   value: number
