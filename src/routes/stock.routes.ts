@@ -10,6 +10,7 @@ import verifySchemaMiddleware from "../middlewares/global/verifySchema.middlewar
 import { ensureAuthMiddleware } from "../middlewares/login/ensureAuth.middleware";
 import verifyStockAlreadyExistsMiddleware from "../middlewares/stock/verifyStockAlreadyExists.middleware";
 import verifyStockexistsMiddleware from "../middlewares/stock/verifyStockExists.middleware";
+import verifyUpdateBodyMiddleware from "../middlewares/stock/verifyUpdateBody.middleware";
 import {
   insertStockSchema,
   stockRequestEschema,
@@ -37,6 +38,7 @@ stockRouter.get(
 stockRouter.patch(
   "/:id",
   ensureAuthMiddleware,
+  verifyUpdateBodyMiddleware,
   verifySchemaMiddleware(stockUpdateSchema),
   verifyStockexistsMiddleware,
   updateStockController
@@ -44,6 +46,7 @@ stockRouter.patch(
 stockRouter.put(
   "/:id",
   ensureAuthMiddleware,
+  verifyUpdateBodyMiddleware,
   verifySchemaMiddleware(insertStockSchema),
   verifyStockexistsMiddleware,
   updateStockController
