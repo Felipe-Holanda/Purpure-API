@@ -5,27 +5,27 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { Product_sales } from "./product_sales.entity";
-// import {Clients} from './clients.entity'
+} from 'typeorm'
+import { Clients } from './clients.entity'
+import { Product_sales } from './product_sales.entity'
 
-@Entity("sales")
+@Entity('sales')
 export class Sales {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string
 
-  @Column({ type: "integer" })
-  amount: number;
+  @Column({ type: 'integer' })
+  amount: number
 
-  @Column({ type: "float" })
-  value: number;
+  @Column({ type: 'float' })
+  value: number
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt: Date
 
-  // @ManyToOne((clients) => clients)
-  // clients: Clients
+  @ManyToOne(() => Clients, (clients) => clients.id)
+  clients: Clients
 
   @OneToMany(() => Product_sales, (product_sales) => product_sales.sales)
-  product_sales: Product_sales;
+  product_sales: Product_sales
 }
