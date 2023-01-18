@@ -1,17 +1,27 @@
-import { clientsRepository } from "../../data-source";
-import { Request, Response, NextFunction } from "express";
-import AppError from "../../errors/AppError";
+import AppDataSource from '../../data-source'
+import { Request, Response, NextFunction } from 'express'
+import AppError from '../../errors/AppError'
+import { Clients } from '../../entities/clients.entity'
 
-export default async function checkUniqueMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const { email, phone, name } = req.body as { email: string, phone: string, name: string };
+export default async function checkUniqueMiddleware(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> {
+  const clientsRepository = AppDataSource.getRepository(Clients)
+  const { email, phone, name } = req.body as {
+    email: string
+    phone: string
+    name: string
+  }
 
-    const clientEmail = await clientsRepository.find({ where: { email } });
-    const clientPhone = await clientsRepository.find({ where: { phone } });
-    const clientName = await clientsRepository.find({ where: { name } });
-    
-    if (clientEmail.length > 0) throw new AppError("Email already in use", 400);
-    if (clientPhone.length > 0) throw new AppError("Phone already in use", 400);
-    if (clientName.length > 0) throw new AppError("Name already in use", 400);
+  const clientEmail = await clientsRepository.find({ where: { email } })
+  const clientPhone = await clientsRepository.find({ where: { phone } })
+  const clientName = await clientsRepository.find({ where: { name } })
 
-    return next();
+  if (clientEmail.length > 0) throw new AppError('Email already in use', 400)
+  if (clientPhone.length > 0) throw new AppError('Phone already in use', 400)
+  if (clientName.length > 0) throw new AppError('Name already in use', 400)
+
+  return next()
 }

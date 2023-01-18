@@ -1,47 +1,50 @@
 import AppDataSource from '../../data-source'
 import { Sales } from '../../entities/sales.entity'
 import { Clients } from '../../entities/clients.entity'
-import { Product_sales } from '../../entities/product_sales.entity'
-import Stock from '../../entities/stock.entity'
-import { ISales } from '../../interfaces/sales.interfaces'
+import { StockSales } from '../../entities/stockSales.entity'
+import { Stock } from '../../entities/stock.entity'
+import { ISales, ISalesReturn } from '../../interfaces/sales/sales.interfaces'
 
-export const createSaleService = async (data: any) => {
+export const createSaleService = async (
+  data: ISales
+): Promise<ISalesReturn> => {
   const salesRepository = AppDataSource.getRepository(Sales)
 
   const clientsRespository = AppDataSource.getRepository(Clients)
 
-  const productSalesRepository = AppDataSource.getRepository(Product_sales)
+  const stockSalesRepository = AppDataSource.getRepository(StockSales)
 
-  const productRepository = AppDataSource.getRepository(Stock)
+  const stockRepository = AppDataSource.getRepository(Stock)
 
-  const foundClient = await clientsRespository.findOneBy({ id: data.clients })
+  const foundClient = await clientsRespository.findOneBy({ id: data.client })
 
-  const foundProduct = await productRepository.findOneBy({
-    id: data.product_sales,
+  const foundStock = await stockRepository.findOneBy({
+    id: data.stock,
   })
 
-  const createdSale = salesRepository.create(data)
+  const createdSale = salesRepository.create({
+    amount: data.amount,
+    client: foundClient,
+    value: data.value,
+  })
   await salesRepository.save(createdSale)
 
-  console.log(data)
-  console.log(createdSale)
-  const test = salesRepository.findOneBy({ id: createdSale.id })
+  const sale = await salesRepository.findOneBy({ id: createdSale.id })
+
+  const stockSaleReturned = {
+    sale: sale,
+    stock: foundStock,
+  }
+
+  const stockSaleRegister = stockSalesRepository.create(stockSaleReturned)
+  await stockSalesRepository.save(stockSaleRegister)
 
   const returnedSale = {
     ...createdSale,
-    clients: undefined,
-    client_name: foundClient.name,
-    product_name: foundProduct.name,
-    product_id: foundProduct.id,
+    client: undefined,
+    clientName: foundClient.name,
+    stockName: foundStock.name,
   }
-
-  const teste = {
-    sales: createdSale,
-    products: foundProduct,
-  }
-
-  const teste2 = productSalesRepository.create(teste)
-  await productSalesRepository.save(teste2)
 
   return returnedSale
 }

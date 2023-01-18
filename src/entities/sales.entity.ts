@@ -6,7 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { Product_sales } from './product_sales.entity'
+import { StockSales } from './stockSales.entity'
 import { Clients } from './clients.entity'
 
 @Entity('sales')
@@ -24,8 +24,8 @@ export class Sales {
   createdAt: Date
 
   @ManyToOne(() => Clients, (clients) => clients.sales)
-  clients: Clients
+  client: Clients
 
-  @OneToMany(() => Product_sales, (product_sales) => product_sales.sales)
-  product_sales: Product_sales[]
+  @OneToMany(() => StockSales, (stockSales) => stockSales.sale)
+  stockSales: StockSales[]
 }

@@ -6,10 +6,10 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { Product_sales } from './product_sales.entity'
+import { StockSales } from './stockSales.entity'
 import { User } from './users.entity'
 
-@Entity('products')
+@Entity('stock')
 class Stock {
   @PrimaryGeneratedColumn()
   id: number
@@ -29,8 +29,8 @@ class Stock {
   @ManyToOne(() => User, (user) => user.stock)
   user: User
 
-  @OneToMany(() => Product_sales, (product) => product.products)
-  product_sales: Product_sales[]
+  @OneToMany(() => StockSales, (stockSales) => stockSales.stock)
+  stockSales: StockSales[]
 }
 
-export default Stock
+export { Stock }
