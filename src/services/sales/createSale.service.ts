@@ -9,7 +9,7 @@ export const createSaleService = async (data: any) => {
   
   const foundClient = await clientsRespository.findOneBy({ id: data.clients })
   const createdSale = salesRepository.create(data)
-  
+
   await salesRepository.save(createdSale)
   
   const reuturnedSale = {
