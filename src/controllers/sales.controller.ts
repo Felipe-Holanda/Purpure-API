@@ -7,7 +7,9 @@ export const listSalesController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const sales = await listSalesService()
+  const idUser = req.user.id
+  const sales = await listSalesService(idUser)
+
   return res.status(200).json(sales)
 }
 

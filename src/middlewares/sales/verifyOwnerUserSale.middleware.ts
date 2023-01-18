@@ -3,24 +3,22 @@ import AppDataSource from '../../data-source'
 import { Clients } from '../../entities/clients.entity'
 import AppError from '../../errors/AppError'
 
-export const verifyClientId = async (
+export const verifyOwnerUserSale = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const clientsRepository = AppDataSource.getRepository(Clients)
 
-  const foundClient = await clientsRepository.findOneBy({
-    id: req.body.clients,
+  const ownerUser = await clientsRepository.findOneBy({
+    user: req.user,
   })
 
-  if (!foundClient) {
-    throw new AppError('client does not exists!', 404)
+  if (!ownerUser) {
+    throw new AppError('Not found any sale!', 404)
   }
-
-  console.log(foundClient)
 
   return next()
 }
 
-export default verifyClientId
+export default verifyOwnerUserSale

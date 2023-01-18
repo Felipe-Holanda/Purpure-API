@@ -1,26 +1,49 @@
-import { Router } from 'express';
-export const clientsRoutes = Router();
-//Schema
-import { CreateClientsShape, UpdateClientsShape } from '../schemas/clients.schemas'
-
-//Middlewares
-import verifySchemaMiddleware from '../middlewares/global/verifySchema.middleware';
-import { ensureAuthMiddleware } from '../middlewares/login/ensureAuth.middleware';
-import checkMatchMiddleware from '../middlewares/clients/checkMatch.middleware';
-import checkUniqueMiddleware from '../middlewares/clients/checkUnique.middleware';
-import checkKeysMiddleware from '../middlewares/clients/checkKeys.middleware';
-import checkActivedMiddleware from '../middlewares/clients/checkActived.middleware';
-
-//Controllers
+import { Router } from 'express'
+export const clientsRoutes = Router()
 import {
-    registerClientsController, getClientsController,
-    getSpecificController, editClientController,
-    deleteClientController
-} from '../controllers/clients.controller';
+  CreateClientsShape,
+  UpdateClientsShape,
+} from '../schemas/clients.schemas'
+import verifySchemaMiddleware from '../middlewares/global/verifySchema.middleware'
+import { ensureAuthMiddleware } from '../middlewares/login/ensureAuth.middleware'
+import checkMatchMiddleware from '../middlewares/clients/checkMatch.middleware'
+import checkUniqueMiddleware from '../middlewares/clients/checkUnique.middleware'
+import checkKeysMiddleware from '../middlewares/clients/checkKeys.middleware'
+import checkActivedMiddleware from '../middlewares/clients/checkActived.middleware'
+import {
+  registerClientsController,
+  getClientsController,
+  getSpecificController,
+  editClientController,
+  deleteClientController,
+} from '../controllers/clients.controller'
 
-//Routes
-clientsRoutes.get("", ensureAuthMiddleware, getClientsController)
-clientsRoutes.post("", ensureAuthMiddleware, verifySchemaMiddleware(CreateClientsShape), checkUniqueMiddleware, registerClientsController)
-clientsRoutes.get("/:id", ensureAuthMiddleware, checkActivedMiddleware, getSpecificController)
-clientsRoutes.patch("/:id", ensureAuthMiddleware, checkMatchMiddleware, verifySchemaMiddleware(UpdateClientsShape), checkUniqueMiddleware, checkKeysMiddleware, editClientController)
-clientsRoutes.delete("/:id", ensureAuthMiddleware, checkMatchMiddleware, deleteClientController)
+clientsRoutes.get('', ensureAuthMiddleware, getClientsController)
+clientsRoutes.post(
+  '',
+  ensureAuthMiddleware,
+  verifySchemaMiddleware(CreateClientsShape),
+  checkUniqueMiddleware,
+  registerClientsController
+)
+clientsRoutes.get(
+  '/:id',
+  ensureAuthMiddleware,
+  checkActivedMiddleware,
+  getSpecificController
+)
+clientsRoutes.patch(
+  '/:id',
+  ensureAuthMiddleware,
+  checkMatchMiddleware,
+  verifySchemaMiddleware(UpdateClientsShape),
+  checkUniqueMiddleware,
+  checkKeysMiddleware,
+  editClientController
+)
+clientsRoutes.delete(
+  '/:id',
+  ensureAuthMiddleware,
+  checkMatchMiddleware,
+  deleteClientController
+)

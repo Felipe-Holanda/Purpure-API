@@ -5,9 +5,8 @@ import { Clients } from '../../entities/clients.entity'
 export const createSaleService = async (body): Promise<Sales[]> => {
   const salesRepository = AppDataSource.getRepository(Sales)
 
-  const clientsRespository = AppDataSource.getRepository(Clients)
-
-  const foundClient = await clientsRespository.findOneBy({ id: body.id })
+  const clientsRepository = AppDataSource.getRepository(Clients)
+  const foundClient = await clientsRepository.findOneBy({ id: body.clients })
 
   const createdSale = salesRepository.create(body)
   await salesRepository.save(createdSale)
