@@ -3,29 +3,34 @@ import {
   DeleteDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { User } from "./users.entity";
+} from 'typeorm'
+import { Product_sales } from './product_sales.entity'
+import { User } from './users.entity'
 
-@Entity("products")
+@Entity('products')
 class Stock {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column()
-  name: string;
+  name: string
 
   @Column()
-  stock: number;
+  stock: number
 
-  @Column({ type: "decimal", precision: 14, scale: 2 })
-  amount: number;
+  @Column({ type: 'decimal', precision: 14, scale: 2 })
+  amount: number
 
   @DeleteDateColumn()
-  deletedAt: Date;
+  deletedAt: Date
 
   @ManyToOne(() => User, (user) => user.stock)
-  user: User;
+  user: User
+
+  @OneToMany(() => Product_sales, (product) => product.products)
+  product_sales: Product_sales[]
 }
 
-export default Stock;
+export default Stock

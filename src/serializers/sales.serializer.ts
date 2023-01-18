@@ -10,4 +10,5 @@ export const salesRequestschema = yup.object().shape({
       'Client Id not found'
     ),
   value: yup.number().required(),
+  product_sales: yup.number().required(),
 })

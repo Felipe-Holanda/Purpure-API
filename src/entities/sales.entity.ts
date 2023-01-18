@@ -27,5 +27,5 @@ export class Sales {
   clients: Clients
 
   @OneToMany(() => Product_sales, (product_sales) => product_sales.sales)
-  product_sales: Product_sales
+  product_sales: Product_sales[]
 }
