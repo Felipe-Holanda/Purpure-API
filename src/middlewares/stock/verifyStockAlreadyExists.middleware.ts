@@ -7,15 +7,15 @@ const verifyStockAlreadyExistsMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const stockRepository = AppDataSource.getRepository(Stock);
 
   const stock = await stockRepository.findOneBy({
-    id: Number(req.params.id),
+    name: req.body.name,
   });
 
   if (stock) {
-    throw new AppError("Stock already exists", 209);
+    throw new AppError("Product already exists", 409);
   }
 
   return next();

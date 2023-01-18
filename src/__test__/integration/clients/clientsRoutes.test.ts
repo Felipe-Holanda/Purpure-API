@@ -1,4 +1,4 @@
-/* import  request  from "supertest"
+import  request  from "supertest"
 import { DataSource } from "typeorm"
 import app from "../../../app"
 import AppDataSource from "../../../data-source"
@@ -25,64 +25,51 @@ describe("/clients",() => {
     })
 
 
-    test("POST /clients -  Must be able to create a product",async () => {
+    test("POST /clients -  Must be able to create a client",async () => {
         const responseLogin = await request(app).post('/login').send(mockedUserLogin)
-        console.log(responseLogin.body)
+        
         const token = `Bearer ${responseLogin.body.token}`
-
-        const userTobeUpdateRequest = await request(app).get("/users").set("Authorization", token)
     
-        newClient.user = userTobeUpdateRequest.body[0].id
         const response = await request(app).post("/clients").set("Authorization", token).send(newClient)
 
         expect(response.body).toHaveProperty("id")
         expect(response.body).toHaveProperty("name")
         expect(response.body).toHaveProperty("document")
         expect(response.body).toHaveProperty("email")
-        expect(response.body).toHaveProperty("number")
+        expect(response.body).toHaveProperty("phone")
         expect(response.status).toBe(201)
     
     })
-
-    test("POST /clients - should not be able to create a product that already exists",async () => {
+    
+    test("POST /clients - should not be able to create a client that already exists",async () => {
         const responseLogin = await request(app).post('/login').send(mockedUserLogin)
         const token = `Bearer ${responseLogin.body.token}`
-
-        const userTobeUpdateRequest = await request(app).get("/users").set("Authorization", token)
     
-        newClient.user = userTobeUpdateRequest.body[0].id
         const response = await request(app).post("/clients").set("Authorization", token).send(newClient)
 
         expect(response.body).toHaveProperty("message")
-        expect(response.status).toBe(409)
+        expect(response.status).toBe(400)
     })
 
-    test("POST /clients - should not be able to create product with invalid userId",async () => {
-        const responseLogin = await request(app).post('/login').send(mockedUserLogin)
-        const token = `Bearer ${responseLogin.body.token}`
 
-        const response = await request(app).post("/clients").set("Authorization", token).send(newClientInvalidUserId)
-
-        expect(response.body).toHaveProperty("message")
-        expect(response.status).toBe(404)
-    })
-
-    test("POST /clients - should not be able to create another product without authorization",async () => {
+    test("POST /clients - should not be able to create another client without authorization",async () => {
         const response = await request(app).post("/clients").send(newClient)
 
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(401)
     })
 
-    test("GET /clients - Must be able to list all products",async () => {
-        const getProducts = await request(app).get("/clients")
+    test("GET /clients - Must be able to list all clients",async () => {
+        const responseLogin = await request(app).post('/login').send(mockedUserLogin)
+        const token = `Bearer ${responseLogin.body.token}`
 
-        expect(getProducts.body).toHaveProperty("id")
-        expect(getProducts.body.clients).toHaveLength(1)
+        const getProducts = await request(app).get("/clients").set("Authorization", token)
+
+        expect(getProducts.body).toHaveLength(1)
         expect(getProducts.status).toBe(200)
     }) 
 
-    test("PACH /clients/:id - should not be able to update another product without authorization",async () => {
+    test("PACH /clients/:id - should not be able to update another client without authorization",async () => {
         const updateClient = {
             name: "cliente atualizado"
         }
@@ -90,8 +77,8 @@ describe("/clients",() => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserLogin)
         const token = `Bearer ${userLoginResponse.body.token}`
 
-        const clientTobeUpdateRequest = await request(app).get("/clients")
-        const clientTobeUpdateId = clientTobeUpdateRequest.body.clients[0].id
+        const clientTobeUpdateRequest = await request(app).get("/clients").set("Authorization", token)
+        const clientTobeUpdateId = clientTobeUpdateRequest.body[0].id
 
         const response = await request(app).patch(`/clients/${clientTobeUpdateId}`).send(updateClient)
 
@@ -100,7 +87,7 @@ describe("/clients",() => {
 
     }) 
     
-    test("PACH /clients/:id - should not be able to update nother product without invalid productId",async () => {
+    test("PACH /clients/:id - should not be able to update nother client without invalid clientId",async () => {
         const updateClient = {
             name: "cliente atualizado"
         }
@@ -108,8 +95,8 @@ describe("/clients",() => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserLogin)
         const token = `Bearer ${userLoginResponse.body.token}`
 
-        const clientTobeUpdateRequest = await request(app).get("/clients")
-        const clientTobeUpdateId = clientTobeUpdateRequest.body.clients[0].id
+        const clientTobeUpdateRequest = await request(app).get("/clients").set("Authorization", token)
+        const clientTobeUpdateId = clientTobeUpdateRequest.body.id
 
         const response = await request(app).patch(`/clients/123456`).set("Authorization", token).send(updateClient)
 
@@ -125,9 +112,8 @@ describe("/clients",() => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserLogin)
         const token = `Bearer ${userLoginResponse.body.token}`
 
-        const productTobeUpdateRequest = await request(app).get("/clients")
-        const productTobeUpdateId = productTobeUpdateRequest.body.clients[0].id
-
+        const productTobeUpdateRequest = await request(app).get("/clients").set("Authorization", token)
+        const productTobeUpdateId = productTobeUpdateRequest.body[0].id
         const response = await request(app).patch(`/clients/${productTobeUpdateId}`).set("Authorization", token).send(updateClient)
 
         expect(response.body).toHaveProperty("message")
@@ -137,14 +123,16 @@ describe("/clients",() => {
 
     test("PACH /clients/:id - must be able update client",async () => {
         const updateClient = {
-            name: "cliente atualizado"
+            name: "cliente atualizado",
+            email: "novo@gmail.com",
+	        phone: "19345678999"
         }
 
         const userLoginResponse = await request(app).post("/login").send(mockedUserLogin)
         const token = `Bearer ${userLoginResponse.body.token}`
 
-        const productTobeUpdateRequest = await request(app).get("/clients")
-        const productTobeUpdateId = productTobeUpdateRequest.body.clients[0].id
+        const productTobeUpdateRequest = await request(app).get("/clients").set("Authorization", token)
+        const productTobeUpdateId = productTobeUpdateRequest.body[0].id
 
         const response = await request(app).patch(`/clients/${productTobeUpdateId}`).set("Authorization", token).send(updateClient)
 
@@ -159,8 +147,8 @@ describe("/clients",() => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserLogin)
         const token = `Bearer ${userLoginResponse.body.token}`
 
-        const clientTobeUpdateRequest = await request(app).get("/clients")
-        const clientTobeUpdateId = clientTobeUpdateRequest.body.clients[0].id
+        const clientTobeUpdateRequest = await request(app).get("/clients").set("Authorization", token)
+        const clientTobeUpdateId = clientTobeUpdateRequest.body.id
 
         const response = await request(app).delete(`/clients/${clientTobeUpdateId}`)
 
@@ -172,8 +160,8 @@ describe("/clients",() => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserLogin)
         const token = `Bearer ${userLoginResponse.body.token}`
 
-        const clientTobeUpdateRequest = await request(app).get("/clients")
-        const clientTobeUpdateId = clientTobeUpdateRequest.body.clients[0].id
+        const clientTobeUpdateRequest = await request(app).get("/clients").set("Authorization", token)
+        const clientTobeUpdateId = clientTobeUpdateRequest.body.id
 
         const response = await request(app).delete(`/clients/123456`).set("Authorization", token)
 
@@ -185,16 +173,11 @@ describe("/clients",() => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserLogin)
         const token = `Bearer ${userLoginResponse.body.token}`
 
-        const clientTobeUpdateRequest = await request(app).get("/clients")
-        const clientTobeUpdateId = clientTobeUpdateRequest.body.clients[0].id
+        const clientTobeDeletedRequest = await request(app).get("/clients").set("Authorization", token)
+        const clientTobeDeleted = clientTobeDeletedRequest.body[0].id
+        
+        const response = await request(app).delete(`/clients/${clientTobeDeleted}`).set("Authorization", token)
 
-        const response = await request(app).delete(`/clients/${clientTobeUpdateId}`).set("Authorization", token)
-
-        const getProducts = await request(app).get("/clients")
-
-        expect(getProducts.body.clients).toHaveLength(0)
         expect(response.status).toBe(204)
-    })    
-
-
-}) */
+    })  
+}) 

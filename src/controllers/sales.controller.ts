@@ -7,7 +7,9 @@ export const listSalesController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const sales = await listSalesService()
+  const idUser = req.user.id
+  const sales = await listSalesService(idUser)
+
   return res.status(200).json(sales)
 }
 
@@ -24,7 +26,8 @@ export const createSaleController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const sale = await createSaleService(req.body)
+  const data  = req.body
+  const sale = await createSaleService(data)
 
-  return res.status(200).json(sale)
+  return res.status(201).json(sale)
 }

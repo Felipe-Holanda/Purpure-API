@@ -28,8 +28,7 @@ export const newClient = {
     name: "Jonas",
     document: "11122233345",
     email: "jonas@mail.com",
-    number: "00912345678",
-    user:""
+    phone: "00912345678"   
 }
 
 export const newClientInvalidUserId = {
@@ -42,15 +41,14 @@ export const newClientInvalidUserId = {
 
 export const newProduct = {
     name: "produto_1",
-    value: "10",
-    stock: "5",
-    user: ""
+    amount: 10,
+    stock: 5
 }
 
 
 export const newProductInvalidUserId = {
-    name: "produto_1",
-    value: "10",
+    name: "produto_2",
+    amount: "10",
     stock: "5",
     user: "5452138748542132212"
 }
@@ -58,9 +56,11 @@ export const newProductInvalidUserId = {
 
 
 export const newSale = {
-    client: "",
-    product: "",
-    user: "",
-    amout: 5
+    amount: 2,
+    clients: "",
+    value: 10.99
 }
 
+export const saleId = {
+    id: ""
+}

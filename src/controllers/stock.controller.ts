@@ -30,7 +30,7 @@ export const listStockController = async (
 
   const stockList = await listStockService(userId);
 
-  return res.json(stockList);
+  return res.status(200).json(stockList);
 };
 
 export const getStockByIdController = async (

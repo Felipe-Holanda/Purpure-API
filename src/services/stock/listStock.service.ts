@@ -3,21 +3,21 @@ import { User } from "../../entities/users.entity";
 import { IStock } from "../../interfaces/stock.interface";
 import { listStockSchema } from "../../serializers/stock.serializer";
 
-const listStockService = async (userId: string): Promise<IStock[]> => {
+const listStockService = async (userId: string) => {
   const userRepository = AppDataSource.getRepository(User);
 
-  const stockList = await userRepository
-    .createQueryBuilder("users")
-    .innerJoin("users.stock", "stock")
-    .where("user.id = :id", { id: userId })
-    .select("stock")
-    .getMany();
 
-  const stockListValidated = await listStockSchema.validate(stockList, {
+  const { stock } = await userRepository
+    .createQueryBuilder("users")
+    .innerJoinAndSelect("users.stock", "stock")
+    .where("users.id = :id", { id: userId })
+    .getOne();
+
+  const stockListValidated = await listStockSchema.validate(stock, {
     stripUnknown: true,
   });
-
-  return stockListValidated;
+  
+  return stockListValidated
 };
 
 export default listStockService;

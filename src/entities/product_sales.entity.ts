@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Sales } from "./sales.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Sales } from './sales.entity'
+import Stock from './stock.entity'
 
 // import {Products} from './products.entity'
 
@@ -8,15 +9,9 @@ export class Product_sales {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ unique: true })
-  product_id: string;
+  @ManyToOne(() => Sales, (sales) => sales.id) 
+  sales: Sales
 
-  @Column({ unique: true })
-  sales_id: string;
-
-  @ManyToOne(() => Sales, (sales) => sales.product_sales)
-  sales: Sales;
-
-  // @ManyToOne((products) => Stock)
-  // products: Stock
+  @ManyToOne(() => Stock, (stock) => stock.id)
+  products: Stock
 }
