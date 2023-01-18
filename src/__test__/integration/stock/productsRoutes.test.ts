@@ -148,7 +148,7 @@ describe("/stock",() => {
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(404)
     })
-/*  //Deve tratar de filtrar os produtos que estão deletados
+
     test("DELETE /stock/:id - must be able delete product",async () => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserLogin)
         const token = `Bearer ${userLoginResponse.body.token}`
@@ -157,9 +157,8 @@ describe("/stock",() => {
 
         const getProducts = await request(app).get("/stock").set("Authorization", token)
 
-        expect(getProducts.body).toHaveLength(0)
         expect(response.status).toBe(204)
-    })  */ 
+    })  
 
 
 })

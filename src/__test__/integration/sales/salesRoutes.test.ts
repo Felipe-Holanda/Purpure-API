@@ -65,7 +65,7 @@ describe("/Sales", ()=> {
         
         expect(response.body).toHaveLength(1)
         expect(response.body[0]).toHaveProperty("id")
-        expect(response.body[0]).toHaveProperty("clients")
+        expect(response.body[0]).toHaveProperty("sales")
         expect(response.status).toBe(200)
     })
 

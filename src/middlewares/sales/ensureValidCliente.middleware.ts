@@ -18,8 +18,6 @@ export const verifyClientId = async (
     throw new AppError('client does not exists!', 404)
   }
 
-  console.log(foundClient)
-
   return next()
 }
 

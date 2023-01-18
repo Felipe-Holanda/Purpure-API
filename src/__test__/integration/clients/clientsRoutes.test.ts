@@ -169,7 +169,7 @@ describe("/clients",() => {
         expect(response.status).toBe(404)
     })
 
-/*     test("DELETE /clients/:id - must be able delete product",async () => {
+    test("DELETE /clients/:id - must be able delete product",async () => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserLogin)
         const token = `Bearer ${userLoginResponse.body.token}`
 
@@ -178,5 +178,6 @@ describe("/clients",() => {
         
         const response = await request(app).delete(`/clients/${clientTobeDeleted}`).set("Authorization", token)
 
-    })  */
+        expect(response.status).toBe(204)
+    })  
 }) 
