@@ -7,7 +7,6 @@ const deleteStockService = async (stockId: number): Promise<void> => {
   const stock = await stockRepository.findOneBy({
     id: stockId,
   })
-
   await stockRepository.softRemove(stock)
 
   return

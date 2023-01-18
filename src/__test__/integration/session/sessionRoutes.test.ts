@@ -46,7 +46,7 @@ describe("/login", () => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserLogin)
         const userTobeDeleted = await request(app).get("/users").set("Authorization", `Bearer ${userLoginResponse.body.token}`)
 
-        await request(app).delete(`/users/${userTobeDeleted.body[0].id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        await request(app).delete(`/users/${userTobeDeleted.body.id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
 
         const response = await request(app).post("/login").send(mockedUserLogin)
         

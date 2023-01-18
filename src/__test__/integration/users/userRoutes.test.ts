@@ -54,7 +54,7 @@ describe("/users", () => {
         const secondLoginResponse = await request(app).post("/login").send(mockedUserLogin_2);
         const UserTobeDeleted = await request(app).get('/users').set("Authorization", `Bearer ${secondLoginResponse.body.token}`)
     
-        const response = await request(app).delete(`/users/${UserTobeDeleted.body[0].id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        const response = await request(app).delete(`/users/${UserTobeDeleted.body.id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
 
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(403)
@@ -75,11 +75,11 @@ describe("/users", () => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserLogin)
         const userTobeDeleted = await request(app).get("/users").set("Authorization", `Bearer ${userLoginResponse.body.token}`)
 
-        const response = await request(app).delete(`/users/${userTobeDeleted.body[1].id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        const response = await request(app).delete(`/users/${userTobeDeleted.body.id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
         const findUser = await request(app).get(`/users`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
 
+
         expect(response.status).toBe(204)
-        expect(findUser.body).toHaveLength(1)
 
     })
 
@@ -88,7 +88,7 @@ describe("/users", () => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserLogin_2);
         const UserToBePach = await request(app).get('/users').set("Authorization", `Bearer ${userLoginResponse.body.token}`)
 
-        const response = await request(app).patch(`/users/${UserToBePach.body[0].id}`)
+        const response = await request(app).patch(`/users/${UserToBePach.body.id}`)
 
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(401)
@@ -119,7 +119,7 @@ describe("/users", () => {
         const token = `Bearer ${userLoginResponse.body.token}`
 
         const userTobeUpdateRequest = await request(app).get("/users").set("Authorization", token)
-        const userTobeUpdateId = userTobeUpdateRequest.body[0].id
+        const userTobeUpdateId = userTobeUpdateRequest.body.id
 
         const response = await request(app).patch(`/users/${userTobeUpdateId}`).set("Authorization",token).send(newValues)
         
@@ -138,11 +138,10 @@ describe("/users", () => {
         const token = `Bearer ${userLoginResponse.body.token}`
 
         const userTobeUpdateRequest = await request(app).get("/users").set("Authorization", token)
-        const userTobeUpdateId = userTobeUpdateRequest.body[0].id
+        const userTobeUpdateId = userTobeUpdateRequest.body.id
 
         const response = await request(app).patch(`/users/${userTobeUpdateId}`).set("Authorization",token).send(newValues)
         
-        console.log(response.body)
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(401)
     })
@@ -157,14 +156,14 @@ describe("/users", () => {
         const token = `Bearer ${userLoginResponse.body.token}`
 
         const userTobeUpdateRequest = await request(app).get("/users").set("Authorization", token)
-        const userTobeUpdateId = userTobeUpdateRequest.body[0].id
+        const userTobeUpdateId = userTobeUpdateRequest.body.id
 
         const response = await request(app).patch(`/users/${userTobeUpdateId}`).set("Authorization",token).send(newValues)
 
         const userUpdated = await request(app).get("/users").set("Authorization", token)
         
-        expect(userUpdated.body[0].email).toEqual("atualizado@mail.com")
-        expect(userUpdated.body[0]).not.toHaveProperty("password")
+        expect(userUpdated.body.email).toEqual("atualizado@mail.com")
+        expect(userUpdated.body).not.toHaveProperty("password")
         expect(response.status).toBe(200)
     })
 

@@ -13,7 +13,7 @@ export const ensureAuthMiddleware = async (req: Request, res: Response, next: Ne
     }
 
     token = token.split(' ')[1]
-
+   
     jwt.verify(token, process.env.SECRET_KEY, (error: { message: string; }, decoded: { id: string; isActive: boolean; }) => {
         if (error) {
             throw new AppError(error.message, 401)
