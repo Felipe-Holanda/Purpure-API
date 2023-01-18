@@ -1,6 +1,8 @@
-import { clientsRepository } from '../../data-source'
+import AppDataSource from '../../data-source'
+import { Clients } from '../../entities/clients.entity'
 
 export default async function deleteClientService(id: string): Promise<void> {
+  const clientsRepository = AppDataSource.getRepository(Clients)
   const client = await clientsRepository.findOne({ where: { id } })
 
   client.isActive = false

@@ -1,5 +1,5 @@
 import AppDataSource from '../../data-source'
-import Stock from '../../entities/stock.entity'
+import { Stock } from '../../entities/stock.entity'
 
 const deleteStockService = async (stockId: number): Promise<void> => {
   const stockRepository = AppDataSource.getRepository(Stock)

@@ -1,15 +1,16 @@
 export interface ISales {
-  id?: string
   amount: number
-  client_id: string
+  client: string
   value: number
-  createdAt: Date
+  stock: number
 }
 
 export interface ISalesReturn {
-  id: number
+  id: string
   amount: number
-  client_name: string
+  clientName: string
+  client: undefined
   value: number
   createdAt: Date
+  stockName: string
 }

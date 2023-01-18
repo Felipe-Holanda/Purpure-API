@@ -7,8 +7,9 @@ export const listSaleWithIdService = async (saleId: string): Promise<Sales> => {
   const saleFound = salesRepository.findOne({
     where: { id: saleId },
     relations: {
-      clients: true
-    }})
+      client: true,
+    },
+  })
 
   return saleFound
 }
