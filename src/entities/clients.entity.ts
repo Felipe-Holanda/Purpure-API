@@ -34,7 +34,7 @@ export class Clients {
   @ManyToOne(() => User, (user) => user.clients)
   user: User
 
-  @OneToMany(() => Sales, (sales) => sales.clients)
+  @OneToMany(() => Sales, (sales) => sales.client)
   sales: Sales[]
 
   @CreateDateColumn()

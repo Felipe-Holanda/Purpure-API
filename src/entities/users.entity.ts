@@ -1,4 +1,4 @@
-import { Exclude } from "class-transformer";
+import { Exclude } from 'class-transformer'
 import {
   BeforeInsert,
   BeforeUpdate,
@@ -9,50 +9,50 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from "typeorm";
-import { hashSync } from "bcryptjs";
-import Stock from "./stock.entity";
-import { Clients } from "./clients.entity";
+} from 'typeorm'
+import { hashSync } from 'bcryptjs'
+import { Stock } from './stock.entity'
+import { Clients } from './clients.entity'
 
-@Entity("users")
+@Entity('users')
 export class User {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string
 
   @Column()
-  comercialName: string;
+  comercialName: string
 
   @Column({ unique: true })
-  cnpj: string;
+  cnpj: string
 
   @Column()
   @Exclude()
-  password: string;
+  password: string
 
   @Column({ unique: true })
-  email: string;
+  email: string
 
   @Column({ default: true })
-  isActive: boolean;
+  isActive: boolean
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt: Date
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt: Date
 
   @DeleteDateColumn()
-  deletedAt: Date;
+  deletedAt: Date
 
   @OneToMany(() => Stock, (stock) => stock.user)
-  stock: Stock;
+  stock: Stock
 
   @OneToMany(() => Clients, (clients) => clients.user)
-  clients: Clients;
+  clients: Clients
 
   @BeforeUpdate()
   @BeforeInsert()
   hashPassword() {
-    this.password = hashSync(this.password, 10);
+    this.password = hashSync(this.password, 10)
   }
 }

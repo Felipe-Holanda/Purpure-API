@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 export const salesRequestschema = yup.object().shape({
   amount: yup.number().required(),
-  clients: yup
+  client: yup
     .string()
     .required()
     .matches(
@@ -10,4 +10,5 @@ export const salesRequestschema = yup.object().shape({
       'Client Id not found'
     ),
   value: yup.number().required(),
+  stock: yup.number().required(),
 })
